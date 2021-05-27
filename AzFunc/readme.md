@@ -17,7 +17,7 @@ The Azure Function uses a service principle and client credentials in order to a
 You need to add the following configuration settings for the Azure Functions app.
 
 
-- B2C_<TenantId>_ClientId" - AppId/client_id for client credentials
-- B2C_<TenantId>_ClientSecret" - client_secret for client credentials
+- B2C_{TenantId}_ClientId - AppId/client_id for client credentials
+- B2C_{TenantId}_ClientSecret - client_secret for client credentials
 
-Note that <TenantId> shoud be replaced with your B2C directory's id (guid)
+Note that {TenantId} shoud be replaced with your B2C directory's id (guid)
