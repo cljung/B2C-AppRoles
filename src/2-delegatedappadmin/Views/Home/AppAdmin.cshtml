@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "App Admin";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>This is a page only for users with the role of App Admins</p>
+
+<div class="col-md-6 offset-md-3">
+    @if (User.Identity.IsAuthenticated && User.HasClaim(System.Security.Claims.ClaimTypes.Role, "AppAdmin") )
+    {
+        <h2>New Team</h2>
+        <p style="color:white;background-color:transparent">
+        As an administrator of this application, you can create new teams and add a team manager.
+        </p>
+        <form asp-controller="Home" asp-action="CreateTeam" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
+            <div class="entry">
+                <div class="entry-item" id="idTeamName" >
+                    <label id="label-teamName" for="teamName" style="width:100px">Team:</label>
+                    <input type="text" id="teamName" name="teamName" placeholder="team name" value="" style="width:100%">
+                </div>
+                <div class="entry-item">
+                    <label id="label-email" for="managerEmail" style="width:100px">Manager:</label>
+                    <input type="text" id="managerEmail" name="managerEmail" placeholder="user@company.com" value="" style="width:100%">
+                </div>
+            </div>
+            <div class="entry-item">
+                <label id="label-btn" for="idBtn" style="width:100px"></label>
+                <input type="submit" id="idBtn" value="Create Team" style="width:100%"/>
+            </div>
+        </form>
+    }
+    <br />
+    <p>@ViewData["Message"]</p>
+</div>
+﻿

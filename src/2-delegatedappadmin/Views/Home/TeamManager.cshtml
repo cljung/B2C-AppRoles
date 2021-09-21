@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Team Manager";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>This is a page only for users with the role of Team Managers</p>
+
+<div class="col-md-6 offset-md-3">
+    @if (User.Identity.IsAuthenticated && User.HasClaim(System.Security.Claims.ClaimTypes.Role, "TeamManager") )
+    {
+        <h2>New Team Member</h2>
+        <p style="color:white;background-color:transparent">
+        As an administrator of this application, you can create new teams and add a team manager.
+        </p>
+        <form asp-controller="Home" asp-action="AddUserToTeam" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
+            <div class="entry">
+                <div class="entry-item" id="idTeamMember" style="display:block">
+                    <label id="label-team" for="team" style="white;width:100px">Team:</label>
+                    <select id="team" name="team" style="width:100%;height:25px">
+                        @if ( ViewBag.Groups != null ) {
+                            @foreach( KeyValuePair<string, string> group in ViewBag.Groups) {
+                                <option value=@group.Key>@group.Value</option>
+                            }
+                        }
+                    </select>                    
+                </div>
+                <div class="entry-item">
+                    <label id="label-role" for="role" style="width:100px">Role:</label>
+                    <select id="role" name="role" style="width:100%;height:25px">
+                      <option value="member" selected>Team Member</option>
+                      <option value="manager">Team Manager</option>
+                    </select>                    
+                </div>
+                <div class="entry-item">
+                    <label id="label-email" for="email" style="width:100px">email:</label>
+                    <input type="text" id="email" name="email" placeholder="user@company.com" value="" style="width:100%">
+                </div>
+            </div>
+            <div class="entry-item">
+                <label id="label-btn" for="idBtn" style="width:100px"></label>
+                <input type="submit" id="idBtn" value="Add User to Team" style="width:100%"/>
+            </div>
+        </form>
+    }
+    <br />
+    <p>@ViewData["Message"]</p>
+</div>
+﻿
